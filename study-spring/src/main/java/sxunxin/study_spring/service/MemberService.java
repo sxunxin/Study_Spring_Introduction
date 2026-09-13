@@ -6,10 +6,13 @@ import sxunxin.study_spring.domain.Member;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Autowired 
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
