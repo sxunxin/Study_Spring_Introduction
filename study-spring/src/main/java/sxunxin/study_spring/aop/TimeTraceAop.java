@@ -1,0 +1,24 @@
+package sxunxin.study_spring.aop;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
+
+@Component 
+@Aspect
+public class TimeTraceAop {
+    
+    @Around("execution(* sxunxin.study_spring..*(..))")
+    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+        long strat = System.currentTimeMillis();
+        System.out.println("START: " + joinPoint.toString());
+        try {
+            return joinPoint.proceed();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - strat;
+            System.out.println("END: " + joinPoint.toString() + " " + timeMs + "ms");
+        }
+    }
+}
