@@ -8,6 +8,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import jakarta.transaction.Transactional;
+
+@Transactional 
 public class MemberService {
 
     private final MemberRepository memberRepository;

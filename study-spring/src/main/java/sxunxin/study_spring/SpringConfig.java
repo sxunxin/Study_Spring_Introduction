@@ -1,21 +1,22 @@
 package sxunxin.study_spring;
 
-import javax.sql.DataSource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import sxunxin.study_spring.repository.JdbcTemplateMemberRepository;
+import jakarta.persistence.EntityManager;
+import sxunxin.study_spring.repository.JpaMemberRepository;
 import sxunxin.study_spring.repository.MemberRepository;
 import sxunxin.study_spring.service.MemberService;
 
 @Configuration
 public class SpringConfig {
 
-    private DataSource dataSource;
+    private EntityManager em;
 
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @Autowired 
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
     
     @Bean 
@@ -27,7 +28,8 @@ public class SpringConfig {
     public MemberRepository memberRepository() {
         // return new MemoryMemberRepository();
         // return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+        // return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 
 }
